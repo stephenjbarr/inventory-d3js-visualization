@@ -1,0 +1,61 @@
+* inventory-d3js-visualization
+
+
+Using d3.js to visualize solutions to an inventory problem
+
+
+* Project Summary
+
+This project provides visualizations for the solutions toan inventory dynamic program which features asymmetric information.
+
+* Components
+ 
+The solutions are currently located in a CSV file of the form:
+
+|-----+----+----+-------------------+--------------------------------------+------|
+| i   | si | wi |             value | uuid                                 | type |
+|-----+----+----+-------------------+--------------------------------------+------|
+| 4   |  1 |  1 | 39.99993934398819 | 30427dc0-20ae-48a9-b7ca-85f64f830ff3 | r    |
+| ... |    |    |                   |                                      |      |
+| ... |    |    |                   |                                      |      |
+|-----+----+----+-------------------+--------------------------------------+------|
+  
+where =type= is one of:
+
+ - =r= centralized retailer   
+ - =s= centralized supplier   
+ - =d= decentrailized retailer
+ - =u= decentrailized supplier
+
+
+Additionally, there is a =params.csv= file describing the list of parameterizations
+
+|------+-------+------+-------+------+------+------+---------+---------+--------------------------------------|
+|    h |     p |    k |   muu |  sig |    t |    m | nstep_s | nstep_w | uuid                                 |
+|------+-------+------+-------+------+------+------+---------+---------+--------------------------------------|
+| 1.00 | 99.00 | 4.00 | 10.00 | 3.30 | 1.00 | 2.00 |    1.00 |    1.00 | 8c58ed71-3981-4396-9445-fd0f8b318ea4 |
+| 1.00 | 39.00 | 4.00 | 10.00 | 3.30 | 1.00 | 2.00 |    1.00 |    1.00 | 8d4b4e84-c623-4891-b296-8b8b76dcbe8f |
+| 1.00 | 19.00 | 4.00 | 10.00 | 3.30 | 1.00 | 2.00 |    1.00 |    1.00 | 1aa158a1-5cf3-42dd-a3c4-695edef5d278 |
+| 1.00 |  9.00 | 4.00 | 10.00 | 3.30 | 1.00 | 2.00 |    1.00 |    1.00 | f0ffee49-0d10-41a1-9b77-2e0bb36cf4e1 |
+| 1.00 |  4.00 | 4.00 | 10.00 | 3.30 | 1.00 | 2.00 |    1.00 |    1.00 | 04d8d442-cb5f-41df-87b1-7bd1b0accfd1 |
+|  ... |       |      |       |      |      |      |         |         |                                      |
+|------+-------+------+-------+------+------+------+---------+---------+--------------------------------------|
+
+For each =uuid=, there exist approximately 4 * =k= * (=wMax=)^2  values, where =wMax= is inferred based on the other parameters, but typically varies between 40 and 100. The 4 comes from 4 problem types.
+
+* Roadmap 
+
+  - [ ] Visualize a heatmap for a single instance of the problem
+  - [ ] Create a 2 x K grid of heatmaps
+  - [ ] Allow it to change over time
+    - [ ] Animation play and pause buttons
+  - [ ] Read =params.csv= and create [[https://github.com/turban/d3.slider/blob/master/d3.slider.js][sliders]]
+  - [ ] Figure out a way to query the data dynamically
+    - [ ] Visualize loading data progress
+  - [ ] Add notes to the visualization
+  - [ ] Web service to run the solver on additional parameters
+
+
+* Interface Mockup
+
+<img src="https://docs.google.com/drawings/d/1qWYa2JX6ZqmnakF9n9cTYs8GxMMRgO7cqRIXCwcHhKw/pub?w=960&amp;h=720">
