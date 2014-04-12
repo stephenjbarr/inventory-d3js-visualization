@@ -58,4 +58,7 @@ For each =uuid=, there exist approximately 4 * =k= * (=wMax=)^2  values, where =
 
 * Interface Mockup
 
-<img src="https://docs.google.com/drawings/d/1qWYa2JX6ZqmnakF9n9cTYs8GxMMRgO7cqRIXCwcHhKw/pub?w=960&amp;h=720">
+
+[[file:mockup1.png]]
+
+
