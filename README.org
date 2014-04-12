@@ -58,7 +58,7 @@ For each =uuid=, there exist approximately 4 * =k= * (=wMax=)^2  values, where =
        - "cost" :: Double, matrix z value
        - "k" :: Int, the iteration number
        - "type" :: the type of solution
-     - has_d :: Boolean, this is redundant with types, but will make selctions faster.
+     - has_d : Boolean, this is redundant with types, but will make selctions faster.
 		This indicates if the data is available for the specified type.
 
 
@@ -79,31 +79,31 @@ For each =uuid=, there exist approximately 4 * =k= * (=wMax=)^2  values, where =
        "theta":0.5,
        "points": [
   
-           { "si":1, "wi":1, "cost":0.791893923422322,  "k":1, type:"d" },
-           { "si":1, "wi":2, "cost":0.160935510415584,  "k":1, type:"d" },
-           { "si":1, "wi":3, "cost":0.364172770408913,  "k":1, type:"d" },
-           { "si":1, "wi":4, "cost":0.552027055993676,  "k":1, type:"d" },
-           { "si":1, "wi":5, "cost":0.142493781866506,  "k":1, type:"d" },
-           { "si":2, "wi":1, "cost":0.0875061969272792, "k":1, type:"d" },
-           { "si":2, "wi":2, "cost":0.919137241318822,  "k":1, type:"d" },
-           { "si":2, "wi":3, "cost":0.994913357542828,  "k":1, type:"d" },
-           { "si":2, "wi":4, "cost":0.722297312226146,  "k":1, type:"d" },
-           { "si":2, "wi":5, "cost":0.894296591868624,  "k":1, type:"d" },
-           { "si":3, "wi":1, "cost":0.156067196279764,  "k":1, type:"d" },
-           { "si":3, "wi":2, "cost":0.481373419286683,  "k":1, type:"d" },
-           { "si":3, "wi":3, "cost":0.605798073811457,  "k":1, type:"d" },
-           { "si":3, "wi":4, "cost":0.755949556129053,  "k":1, type:"d" },
-           { "si":3, "wi":5, "cost":0.446277996292338,  "k":1, type:"d" },
-           { "si":4, "wi":1, "cost":0.923983251210302,  "k":1, type:"d" },
-           { "si":4, "wi":2, "cost":0.999228179221973,  "k":1, type:"d" },
-           { "si":4, "wi":3, "cost":0.358962587779388,  "k":1, type:"d" },
-           { "si":4, "wi":4, "cost":0.525295131374151,  "k":1, type:"d" },
-           { "si":4, "wi":5, "cost":0.0718211741186678, "k":1, type:"d" },
-           { "si":5, "wi":1, "cost":0.0522713393438607, "k":1, type:"d" },
-           { "si":5, "wi":2, "cost":0.530499339103699,  "k":1, type:"d" },
-           { "si":5, "wi":3, "cost":0.336861049057916,  "k":1, type:"d" },
-           { "si":5, "wi":4, "cost":0.9441224897746,    "k":1, type:"d" },
-           { "si":5, "wi":5, "cost":0.0678710869979113, "k":1, type:"d" }
+           { "si":1, "wi":1, "cost":0.791893923422322,  "k":1, "type":"d" },
+           { "si":1, "wi":2, "cost":0.160935510415584,  "k":1, "type":"d" },
+           { "si":1, "wi":3, "cost":0.364172770408913,  "k":1, "type":"d" },
+           { "si":1, "wi":4, "cost":0.552027055993676,  "k":1, "type":"d" },
+           { "si":1, "wi":5, "cost":0.142493781866506,  "k":1, "type":"d" },
+           { "si":2, "wi":1, "cost":0.0875061969272792, "k":1, "type":"d" },
+           { "si":2, "wi":2, "cost":0.919137241318822,  "k":1, "type":"d" },
+           { "si":2, "wi":3, "cost":0.994913357542828,  "k":1, "type":"d" },
+           { "si":2, "wi":4, "cost":0.722297312226146,  "k":1, "type":"d" },
+           { "si":2, "wi":5, "cost":0.894296591868624,  "k":1, "type":"d" },
+           { "si":3, "wi":1, "cost":0.156067196279764,  "k":1, "type":"d" },
+           { "si":3, "wi":2, "cost":0.481373419286683,  "k":1, "type":"d" },
+           { "si":3, "wi":3, "cost":0.605798073811457,  "k":1, "type":"d" },
+           { "si":3, "wi":4, "cost":0.755949556129053,  "k":1, "type":"d" },
+           { "si":3, "wi":5, "cost":0.446277996292338,  "k":1, "type":"d" },
+           { "si":4, "wi":1, "cost":0.923983251210302,  "k":1, "type":"d" },
+           { "si":4, "wi":2, "cost":0.999228179221973,  "k":1, "type":"d" },
+           { "si":4, "wi":3, "cost":0.358962587779388,  "k":1, "type":"d" },
+           { "si":4, "wi":4, "cost":0.525295131374151,  "k":1, "type":"d" },
+           { "si":4, "wi":5, "cost":0.0718211741186678, "k":1, "type":"d" },
+           { "si":5, "wi":1, "cost":0.0522713393438607, "k":1, "type":"d" },
+           { "si":5, "wi":2, "cost":0.530499339103699,  "k":1, "type":"d" },
+           { "si":5, "wi":3, "cost":0.336861049057916,  "k":1, "type":"d" },
+           { "si":5, "wi":4, "cost":0.9441224897746,    "k":1, "type":"d" },
+           { "si":5, "wi":5, "cost":0.0678710869979113, "k":1, "type":"d" }
        ],
        "has_d": true, 
        "has_p": false
@@ -146,3 +146,4 @@ For each =uuid=, there exist approximately 4 * =k= * (=wMax=)^2  values, where =
 ** Other useful links
    - [[http://www.youtube.com/watch?v%3D2S1AbEWX85o][JSON + d3.js tutorial]]
    - [[https://www.dashingd3js.com/d3-examples/1-d3-and-javascript-working-with-json][JSON + d3.js tutorial 2]]
+   - [[http://json.parser.online.fr/][Online JSON parser]]
