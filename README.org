@@ -28,22 +28,106 @@ where =type= is one of:
  - =u= decentrailized supplier.
 
 We can refer to this as =param_data=, since it is the data relevent to an individual parameterization.
+For each =uuid=, there exist approximately 4 * =k= * (=wMax=)^2  values, where =wMax= is inferred based on the other parameters, but typically varies between 40 and 100. The 4 comes from 4 problem types.
 
 
 Additionally, there is a =params.csv= file describing the list of parameterizations
 
-|------+-------+------+-------+------+------+------+---------+---------+--------------------------------------|
-|    h |     p |    k |   muu |  sig |    t |    m | nstep_s | nstep_w | uuid                                 |
-|------+-------+------+-------+------+------+------+---------+---------+--------------------------------------|
-| 1.00 | 99.00 | 4.00 | 10.00 | 3.30 | 1.00 | 2.00 |    1.00 |    1.00 | 8c58ed71-3981-4396-9445-fd0f8b318ea4 |
-| 1.00 | 39.00 | 4.00 | 10.00 | 3.30 | 1.00 | 2.00 |    1.00 |    1.00 | 8d4b4e84-c623-4891-b296-8b8b76dcbe8f |
-| 1.00 | 19.00 | 4.00 | 10.00 | 3.30 | 1.00 | 2.00 |    1.00 |    1.00 | 1aa158a1-5cf3-42dd-a3c4-695edef5d278 |
-| 1.00 |  9.00 | 4.00 | 10.00 | 3.30 | 1.00 | 2.00 |    1.00 |    1.00 | f0ffee49-0d10-41a1-9b77-2e0bb36cf4e1 |
-| 1.00 |  4.00 | 4.00 | 10.00 | 3.30 | 1.00 | 2.00 |    1.00 |    1.00 | 04d8d442-cb5f-41df-87b1-7bd1b0accfd1 |
-|  ... |       |      |       |      |      |      |         |         |                                      |
-|------+-------+------+-------+------+------+------+---------+---------+--------------------------------------|
 
-For each =uuid=, there exist approximately 4 * =k= * (=wMax=)^2  values, where =wMax= is inferred based on the other parameters, but typically varies between 40 and 100. The 4 comes from 4 problem types.
+** Acceptable version
+   
+
+   |------+------------------------|
+   | type | min_good_commit_number |
+   |------+------------------------|
+   | d    |                     20 |
+   | r    |                     10 |
+   |------+------------------------|
+
+   If min_good_commit_number < best_run's commit number, re-run for that type.
+   
+   #+BEGIN_SRC sh
+./update-commit-level --type=d # default is latest commit, if running in git repository
+./update-commit-level --type=d --commit=20
+   #+END_SRC
+   
+
+** Data Table
+
+param = (h,p,k,muu,sig,t,m,nstep_s,nstep_w)
+
+|------+------+-------+------+-------+------+------+------+---------+---------+------------+------------------------|
+| type |    h |     p |    k |   muu |  sig |    t |    m | nstep_s | nstep_w | md5(param) | key(md5(param + type)) |
+|------+------+-------+------+-------+------+------+------+---------+---------+------------+------------------------|
+| d    | 1.00 | 99.00 | 4.00 | 10.00 | 3.30 | 1.00 | 2.00 |       1 |       1 | 8c58ed71-  |                        |
+| d    | 1.00 | 39.00 | 4.00 | 10.00 | 3.30 | 1.00 | 2.00 |       1 |       1 | 8d4b4e84-  |                        |
+| d    | 1.00 | 19.00 | 4.00 | 10.00 | 3.30 | 1.00 | 2.00 |       1 |       1 | 1aa158a1-  |                        |
+| d    | 1.00 |  9.00 | 4.00 | 10.00 | 3.30 | 1.00 | 2.00 |       1 |       1 | f0ffee49-  |                        |
+| d    | 1.00 |  4.00 | 4.00 | 10.00 | 3.30 | 1.00 | 2.00 |       1 |       1 | 04d8d442-  |                        |
+| r    | 1.00 | 99.00 | 4.00 | 10.00 | 3.30 | 1.00 | 2.00 |       1 |       1 | 8c58ed71-  |                        |
+|      |      |       |      |       |      |      |      |         |         |            |                        |
+|      |      |       |      |       |      |      |      |         |         |            |                        |
+|------+------+-------+------+-------+------+------+------+---------+---------+------------+------------------------|
+
+
+ - for all known params, run new model
+ - for a spreadsheet of params, do md5, add new tasks
+ - figure out the data management commands
+
+
+ #+BEGIN_SRC sh
+./add-data --file="more_params.csv" 
+   ### report collisions with current 
+   ### report unparsable lines
+ #+end_SRC sh
+
+
+** Runs Table
+   - When a program terminates, it inserts/updates to best runs based on key=(md5(param + type))
+   - Similar schema as log
+
+   - Continuously monitor data && min_good_commit_number, launch jobs as necessary
+
+
+
+** Log Table
+
+   This table is append only, and keeps track of all the simulations that have happened at this point.
+   Logs only gets written as tasks {start,complete,fail}.
+   The idea is that I should be able to do "add tasks to sqs where params from (select all from runs where commit_number < X)".
+   Status = {in_progress, success_fail}
+
+|------------+------------+-------------------+-------------+---------------+--------|
+| key(param) | model-type | uuid (unique key) | commit hash | commit number | status |
+|------------+------------+-------------------+-------------+---------------+--------|
+| 8c58ed71-  | r          |                   | abc123      |     2014-0412 |        |
+| 8d4b4e84-  | r          |                   | abc123      |               |        |
+| 1aa158a1-  | r          |                   | abc123      |               |        |
+| f0ffee49-  | r          |                   |             |               |        |
+| 04d8d442-  | r          |                   |             |               |        |
+| 8c58ed71-  | d          |                   | abc123      |     2014-0412 |        |
+| 8d4b4e84-  | d          |                   | abc123      |               |        |
+| 1aa158a1-  | d          |                   | abc123      |               |        |
+| f0ffee49-  | d          |                   |             |               |        |
+| 04d8d442-  | d          |                   |             |               |        |
+|            |            |                   |             |               |        |
+|            |            |                   |             |               |        |
+|            |            |                   |             |               |        |
+|            |            |                   |             |               |        |
+|------------+------------+-------------------+-------------+---------------+--------|
+
+** Launcher script
+
+   - while SQS queue not empty
+     - get task
+     - construct command line args
+     - run simulation
+     - s3cmd put
+     - delete item from queue
+     - some kind of failure signal
+
+
+
 
 
 
@@ -114,6 +198,9 @@ For each =uuid=, there exist approximately 4 * =k= * (=wMax=)^2  values, where =
 #+END_SRC
 
 
+
+** Web service
+   - upload CSV -> run simulations
 
 * Roadmap 
 
